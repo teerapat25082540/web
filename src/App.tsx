@@ -1,15 +1,19 @@
 import React from "react";
 import HomePage from "./pages/HomePage";
-import TestPage from "./pages/ManageVaccine";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import ManagePage from "./pages/ManageVaccine";
+import ErrorPage from "./pages/Error";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./styles/App.css";
 
 function App() {
   return (
     <Router>
       <div>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/manage" component={TestPage} />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/manage" component={ManagePage} />
+          <Route exact component={ErrorPage} />
+        </Switch>
       </div>
     </Router>
   );
