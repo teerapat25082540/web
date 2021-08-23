@@ -3,11 +3,17 @@ import axios from "axios";
 import React, { useState } from "react";
 import { typeUser } from "../DataType";
 import { EditOutlined } from "@ant-design/icons";
-const EditUser = () => {
+
+type Props = {
+  update: any;
+};
+
+const EditUser = ({update}: Props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [res, setRes] = useState<typeUser>();
   const [data, setData] = useState<any>({});
-  const [form] = Form.useForm();
+
+  //const [form] = Form.useForm();
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -21,37 +27,35 @@ const EditUser = () => {
       tel: localStorage.getItem("tel"),
     });
   };
-
-
   const handleCancel = () => {
     setIsModalVisible(false);
   };
 
-  const accessToken = localStorage.getItem("accessToken");
+const onFinish = (value: any) =>{
+  update(value);
+  setIsModalVisible(false);
+}
 
-  const updateUser = async (value: any) => {
-    console.log(value);
-    const id = localStorage.getItem("id");
-    const res = await axios.put(`http://localhost:4000/api/user/${id}`, value, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
 
-    form.resetFields();
-    setIsModalVisible(false);
-    window.location.reload();
-  };
 
   return (
     <>
       <Button
-        onClick={() => {
-          showModal();
-        }}
-        type="link"
-        icon={<EditOutlined style={{ fontSize: "30px" }} />}
-      />
+              onClick={() => {
+                showModal();
+              }}
+              type="primary"
+              icon={<EditOutlined />}
+              className="btn-action"
+              style={{
+                borderRadius: 0,
+                backgroundColor: "#ffc404",
+                borderColor: "#ffc404",
+              }}
+              //style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+            >
+              แก้ไขข้อมูล
+            </Button>
 
       <Modal
         className="edit-md"
@@ -62,8 +66,8 @@ const EditUser = () => {
       >
         <Form
           name="basic"
-          onFinish={updateUser}
-          form={form}
+          onFinish={onFinish}
+          //form={form}
           initialValues={{
             firstname: data.firstname,
             lastname: data.lastname,

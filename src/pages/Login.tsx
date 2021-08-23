@@ -27,15 +27,20 @@ const Login = () => {
         JSON.stringify(data),
         { headers: { "Content-Type": "application/json" } }
       );
-      if (res) {
+      localStorage.setItem("accessToken", res.data.accessToken);
+      if (res.data.accessToken) {
         Modal.success({
           content: "Login Success!",
         });
-        localStorage.setItem("accessToken", res.data.accessToken);
+      
         form.resetFields();
         getUserLogged();
         setIsModalVisible(false);
         history.push("/");
+      }else{
+        Modal.error({
+          content: "Email or Password is incorrect!",
+        });
       }
     } catch (error) {
       Modal.error({
