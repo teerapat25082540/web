@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Result, Button } from "antd";
 import { useHistory, useLocation } from "react-router-dom";
 const Error = () => {

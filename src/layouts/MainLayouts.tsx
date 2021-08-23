@@ -41,7 +41,7 @@ function MainLayouts({
   loadingRoute,
   visibleRouteButton,
   visibleRouteClear,
-  resetMarker
+  resetMarker,
 }: any) {
   const [state, setState] = useState({
     collapsed: false,
@@ -57,7 +57,7 @@ function MainLayouts({
 
   // initial map
   const initMap = () => {
-    map.Layers.setBase(longdo.Layers.GRAY);
+    map.Layers.setBase(longdo.Layers.NORMAL);
     map.zoom(13);
   };
 
@@ -85,7 +85,7 @@ function MainLayouts({
   // sunmit form success
   const onFinish = async (values: any) => {
     const newVaccine: TypeNewVaccine = {
-      user_id: "79803a03-c848-449f-a6a8-ce326c7d0669",
+      user_id: "a6a96d52-7748-4df5-85a1-dc96c9f0d0",
       name: values.vaccine,
       amount: Number(values.amount),
       email: "teerapat.seeharach@gmail.com",
@@ -100,11 +100,11 @@ function MainLayouts({
       { headers: { "Content-Type": "application/json" } }
     );
     setModalAddData(false);
-    resetMarker()
+    resetMarker();
   };
 
   // select item address
-  const selectSearchItem = (item: any) => {
+  const selectSearchItem = async (item: any) => {
     setLat(item.lat);
     setLon(item.lon);
     map.Overlays.clear();

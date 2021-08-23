@@ -115,8 +115,7 @@ function ManageVaccine() {
       align: "center" as "center",
       width: 50,
       key: 2,
-      sorter: (a:any, b:any) => a.amount - b.amount,
-      ...getColumnSearchProps("amount")
+      sorter: (a: any, b: any) => a.amount - b.amount,
     },
     {
       title: <h4 style={{ textAlign: "center" }}>สร้างเมื่อเวลา</h4>,
@@ -124,7 +123,8 @@ function ManageVaccine() {
       align: "center" as "center",
       width: 100,
       key: 3,
-      sorter: (a:any, b:any) => moment(a.createAt).unix() - moment(b.createAt).unix(),
+      sorter: (a: any, b: any) =>
+        moment(a.createAt).unix() - moment(b.createAt).unix(),
       ...getColumnSearchProps("createAt"),
     },
     {
@@ -146,26 +146,34 @@ function ManageVaccine() {
         await axios.delete(`http://localhost:4000/api/vaccine/${id}`, {
           headers: { "Content-Type": "application/json" },
         });
-        setVaccine([])
+        setVaccine([]);
         getVaccine();
       },
     });
   };
 
-  const editVaccine = async (body: any, id: any) => {
-    await axios.put(`http://localhost:4000/api/vaccine/${id}`, body, {
-      headers: { "Content-Type": "application/json" },
+  const editVaccine = (body: any, id: any) => {
+    Modal.confirm({
+      title: "ยืนยันการแก้ไขข้อมูล",
+      icon: <ExclamationCircleOutlined />,
+      content: "คุณต้องการแก้ไขข้อมูลนี้ใช่หรือไม่ ?",
+      okText: "ยืนยัน",
+      cancelText: "ยกเลิก",
+      onOk: async () => {
+        await axios.put(`http://localhost:4000/api/vaccine/${id}`, body, {
+          headers: { "Content-Type": "application/json" },
+        });
+        setVaccine([]);
+        getVaccine();
+      },
     });
-    setVaccine([])
-    getVaccine();
   };
 
   const getVaccine = async () => {
-    let testUserId = "79803a03-c848-449f-a6a8-ce326c7d0669";
+    let testUserId = "a6a96d52-7748-4df5-85a1-dc96c9f0d0";
     let res = await axios(`http://localhost:4000/api/vaccine/${testUserId}`);
     let vaccineList: object[] = [];
     res.data.forEach((item: any, index: any) => {
-
       let itemVaccine: object = {
         key: index,
         id: item.id,
@@ -190,7 +198,11 @@ function ManageVaccine() {
               รายละเอียด
             </Button>
 
-            <EditVaccineForm index={index} editVaccineHandle={editVaccine} vaccine={item} />
+            <EditVaccineForm
+              index={index}
+              editVaccineHandle={editVaccine}
+              vaccine={item}
+            />
 
             <Button
               onClick={() => {
@@ -217,6 +229,7 @@ function ManageVaccine() {
       `https://api.longdo.com/map/services/address?lon=${item.long}&lat=${item.lat}&key=${mapKey}`
     );
     let address = res.data;
+    // console.log(address);
     Modal.info({
       title: <h4>{item.name}</h4>,
       width: 550,
@@ -235,10 +248,47 @@ function ManageVaccine() {
           <p>
             <span style={{ fontWeight: "bold" }}>ที่อยู่</span>
             <br />
-            <span>
-              {address.road} {address.subdistrict} {address.district}{" "}
-              {address.province} {address.country}{" "}
-            </span>
+            {address.aoi && (
+              <span>
+                {address.aoi} <br />
+              </span>
+            )}
+
+            {address.road && (
+              <span>
+                ถนน {address.road} <br />
+              </span>
+            )}
+
+            {address.subdistrict && (
+              <span>
+                แขวง/ตำบล {address.subdistrict} <br />
+              </span>
+            )}
+
+            {address.district && (
+              <span>
+                อำเภอ/เขต {address.district} <br />
+              </span>
+            )}
+
+            {address.province && (
+              <span>
+                จังหวัด {address.province} <br />
+              </span>
+            )}
+
+            {address.postcode && (
+              <span>
+                จังหวัด {address.postcode} <br />
+              </span>
+            )}
+
+            {address.country && (
+              <span>
+                {address.country} <br />
+              </span>
+            )}
             <br />
           </p>
         </div>
@@ -260,6 +310,7 @@ function ManageVaccine() {
           columns={columns}
           dataSource={vaccine}
           scroll={{ y: 520 }}
+          pagination={{ pageSize: 5 }}
         />
       </MainLayouts>
     </>

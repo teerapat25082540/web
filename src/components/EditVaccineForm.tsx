@@ -25,7 +25,7 @@ const EditVaccineForm = ({ vaccine, editVaccineHandle, index }: Props) => {
 
   const initMap = () => {
     map.Overlays.clear();
-    map.Layers.setBase(longdo.Layers.GRAY);
+    map.Layers.setBase(longdo.Layers.NORMAL);
     map.zoom(10);
     map.Overlays.add(
       new longdo.Marker({ lon: vaccine.long, lat: vaccine.lat })
@@ -73,6 +73,7 @@ const EditVaccineForm = ({ vaccine, editVaccineHandle, index }: Props) => {
   };
 
   const onFinish = async (values: any) => {
+    
     let newVaccine = {
       user_id: vaccine.user_id,
       name: values.vaccine,
@@ -204,7 +205,6 @@ const EditVaccineForm = ({ vaccine, editVaccineHandle, index }: Props) => {
             <TextArea
               placeholder="รายละเอียด"
               rows={3}
-              defaultValue={vaccine.description}
             />
           </Form.Item>
 

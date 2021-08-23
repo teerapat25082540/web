@@ -13,10 +13,10 @@ const HomePage = () => {
   const [province, setProvince] = useState<string | null>(null);
   const [district, setDistrict] = useState<string | null>(null);
   const [subdistrict, setSubdistrict] = useState<string | null>(null);
-  // const [postcode, setPostcode] = useState<string>("");
+  const [postcode, setPostcode] = useState<string>("");
   // const [elevation, setElevation] = useState<number | null>(0);
   const [road, setRoad] = useState<String | null>(null);
-  // const [description, setDescription] = useState<string | null>();
+  const [description, setDescription] = useState<string | null>();
   const [email, setEmail] = useState<string>("");
   const [vaccineName, setVaccineName] = useState<string>("");
   const [amount, setAmount] = useState<number>(0);
@@ -88,29 +88,40 @@ const HomePage = () => {
 
   // initial map
   const initMap = async () => {
-    map.Layers.setBase(longdo.Layers.GRAY);
+    map.Layers.setBase(longdo.Layers.NORMAL);
     map.zoom(12);
     setMarkerUserCurrentLocation();
     let res = await axios("http://localhost:4000/api/vaccine");
     setMarker(res.data);
   };
 
-  const resetMarker = async() => {
+  const resetMarker = async () => {
     setMarkerUserCurrentLocation();
     let res = await axios("http://localhost:4000/api/vaccine");
     setMarker(res.data);
-  }
+  };
 
   // initial user current location
   const setMarkerUserCurrentLocation = async () => {
     let userMarker: any = null;
     let location: any = await getCurrentLocation();
-
+    let res = await axios(
+      `https://api.longdo.com/map/services/address?lon=${location[1]}&lat=${location[0]}&key=${mapKey}`
+    );
+    // console.log(res.data);
     userMarker = new longdo.Marker(
       { lon: location[1], lat: location[0] },
       {
         title: "คุณอยู่ที่นี่",
-        detail: `${location[0]}, ${location[1]}`,
+        detail: `${res.data.aoi && res.data.aoi} ${
+          res.data.road && res.data.road
+        } ${res.data.district && res.data.district} ${
+          res.data.subdistrict && res.data.subdistrict
+        } ${res.data.province && res.data.province} ${
+          res.data.country && res.data.country
+        } ${res.data.country && res.data.country} ${
+          res.data.postcode && res.data.postcode
+        }`,
       }
     );
     map.Overlays.add(userMarker);
@@ -128,7 +139,7 @@ const HomePage = () => {
     //(res.data.geocode);
     setDistrict(res.data.district);
     setSubdistrict(res.data.subdistrict);
-    //setPostcode(res.data.postcode);
+    setPostcode(res.data.postcode);
     //setElevation(res.data.elevation);
     setRoad(res.data.road);
     setAoi(res.data.aoi);
@@ -157,7 +168,7 @@ const HomePage = () => {
           setTel(item.tel);
           setLngDestinnation(item.long);
           setLatDestinnation(item.lat);
-          //setDescription(item.description);
+          setDescription(item.description);
           mapLatLonToAddress(item.lat, item.long);
           showModal();
         }
@@ -172,12 +183,23 @@ const HomePage = () => {
     let location: any = await getCurrentLocation();
     let lat: number = location[0];
     let lng: number = location[1];
+    let res = await axios(
+      `https://api.longdo.com/map/services/address?lon=${lng}&lat=${lat}&key=${mapKey}`
+    );
     map.Route.add(
       new longdo.Marker(
         { lon: lng, lat: lat },
         {
-          title: "Victory monument",
-          detail: "คุณอยู่ที่นี่",
+          title: "คุณอยู่ที่นี่",
+          detail: `${res.data.aoi && res.data.aoi} ${
+            res.data.road && res.data.road
+          } ${res.data.district && res.data.district} ${
+            res.data.subdistrict && res.data.subdistrict
+          } ${res.data.province && res.data.province} ${
+            res.data.country && res.data.country
+          } ${res.data.country && res.data.country} ${
+            res.data.postcode && res.data.postcode
+          }`,
         }
       )
     );
@@ -230,29 +252,14 @@ const HomePage = () => {
         <h4 style={{ fontWeight: "bold" }}>{vaccineName}</h4>
         <p>จำนวน {amount} โดส</p>
 
+        <h4 style={{ fontWeight: "bold" }}>รายละเอียด</h4>
+        <p>{description}</p>
+
         <h4 style={{ fontWeight: "bold" }}>จุดฉีด</h4>
         <address>
-          {country && (
+          {aoi && (
             <span>
-              {country} <br />
-            </span>
-          )}
-
-          {province && (
-            <span>
-              จังหวัด {province} <br />
-            </span>
-          )}
-
-          {district && (
-            <span>
-              อำเภอ/เขต {district} <br />
-            </span>
-          )}
-
-          {subdistrict && (
-            <span>
-              แขวง/ตำบล {subdistrict} <br />
+              {aoi} <br />
             </span>
           )}
 
@@ -262,9 +269,33 @@ const HomePage = () => {
             </span>
           )}
 
-          {aoi && (
+          {subdistrict && (
             <span>
-              Aoi {aoi} <br />
+              แขวง/ตำบล {subdistrict} <br />
+            </span>
+          )}
+
+          {district && (
+            <span>
+              อำเภอ/เขต {district} <br />
+            </span>
+          )}
+
+          {province && (
+            <span>
+              จังหวัด {province} <br />
+            </span>
+          )}
+
+          {postcode && (
+            <span>
+              จังหวัด {postcode} <br />
+            </span>
+          )}
+
+          {country && (
+            <span>
+              {country} <br />
             </span>
           )}
         </address>
