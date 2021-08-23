@@ -17,6 +17,9 @@ import {
   MonitorOutlined,
   ReloadOutlined,
   ExclamationCircleOutlined,
+  FormOutlined,
+  ProfileOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 
 import { FaMapMarkedAlt, FaListAlt, FaUser } from "react-icons/fa";
@@ -50,6 +53,8 @@ function MainLayouts({
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [lat, setLat] = useState<number>(0);
   const [lon, setLon] = useState<number>(0);
+
+  const token = localStorage.getItem("accessToken");
 
   const addressRef = useRef<any>();
   const history = useHistory();
@@ -128,6 +133,20 @@ function MainLayouts({
     //console.log(state);
   };
 
+  const logOut = async () => {
+    Modal.confirm({
+      title: "Logout",
+      icon: <ExclamationCircleOutlined />,
+      content: "Do you want to Log out?",
+      okText: "Ok",
+      cancelText: "Cancel",
+      onOk: async () => {
+        localStorage.clear();
+        history.push("/");
+      },
+    });
+  };
+
   const selectPage = (e: any) => {
     const key = e.key;
     switch (key) {
@@ -136,6 +155,15 @@ function MainLayouts({
         break;
       case "2":
         history.push("/manage");
+        break;
+      case "3":
+        history.push("/login");
+        break;
+      case "4":
+        history.push("/register");
+        break;
+      case "5":
+        history.push("/profile");
         break;
       default:
       //alert("break");
@@ -159,15 +187,36 @@ function MainLayouts({
             theme="dark"
             defaultSelectedKeys={["1"]}
           >
-            <Menu.Item key="1" icon={<FaMapMarkedAlt />}>
-              จุดรับวัคซีน
-            </Menu.Item>
-            <Menu.Item key="2" icon={<FaListAlt />}>
-              จัดการข้อมูลวัคซีน
-            </Menu.Item>
-            <Menu.Item key="3" icon={<FaUser />}>
-              เข้าสู่ระบบ
-            </Menu.Item>
+            {token ? null : (
+              <Menu.Item key="3" icon={<FaUser />}>
+                เข้าสู่ระบบ
+              </Menu.Item>
+            )}
+            {token ? null : (
+              <Menu.Item key="4" icon={<FormOutlined />}>
+                ลงชื่อเข้าใช้
+              </Menu.Item>
+            )}
+            {token ? (
+              <Menu.Item key="5" icon={<ProfileOutlined />}>
+                โปรไฟล์
+              </Menu.Item>
+            ) : null}
+            {token ? (
+              <Menu.Item key="1" icon={<FaMapMarkedAlt />}>
+                จุดรับวัคซีน
+              </Menu.Item>
+            ) : null}
+            {token ? (
+              <Menu.Item key="2" icon={<FaListAlt />}>
+                จัดการข้อมูลวัคซีน
+              </Menu.Item>
+            ) : null}
+            {token ? (
+              <Menu.Item onClick={logOut} icon={<LogoutOutlined />}>
+                ออกจากจะบบ
+              </Menu.Item>
+            ) : null}
           </Menu>
         </Sider>
         <Layout className="site-layout">
@@ -182,14 +231,16 @@ function MainLayouts({
 
             {page === "1" ? (
               <>
-                <Button
-                  className="add-button"
-                  type="primary"
-                  icon={<PlusOutlined />}
-                  onClick={() => setModalAddData(true)}
-                >
-                  เพิ่มข้อมูลวัคซีน
-                </Button>
+                {token ? (
+                  <Button
+                    className="add-button"
+                    type="primary"
+                    icon={<PlusOutlined />}
+                    onClick={() => setModalAddData(true)}
+                  >
+                    เพิ่มข้อมูลวัคซีน
+                  </Button>
+                ) : null}
                 {visibleRouteButton && (
                   <Button
                     style={{
