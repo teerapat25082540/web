@@ -36,7 +36,6 @@ export type TypeNewVaccine = {
 export type typeUser = {
   id?: string;
   username?: string;
-  password?: string;
   firstname?: string;
   lastname?: string;
   email?: string;

@@ -9,6 +9,7 @@ const Register = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
   const history = useHistory();
+  const accessToken = localStorage.getItem("accessToken");
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -43,90 +44,97 @@ const Register = () => {
     //setIsModalVisible(false);
   };
 
-  return (
-    <>
-      <MainLayouts page="4">
-        <Form
-          name="basic"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 9 }}
-          onFinish={addNewUserHandler}
-          form={form}
-        >
-          <Form.Item
-            label="Firstname"
-            name="firstname"
-            rules={[
-              { required: true, message: "Please input your first name!" },
-            ]}
+  if (accessToken) {
+    history.push("/");
+    return null;
+  } else {
+    return (
+      <>
+        <MainLayouts page="4">
+          <Form
+            name="basic"
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 9 }}
+            onFinish={addNewUserHandler}
+            form={form}
           >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="Lastname"
-            name="lastname"
-            rules={[
-              { required: true, message: "Please input your last name!" },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="Username"
-            name="username"
-            rules={[
-              { required: true, message: "Please input your user name!" },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: "Please input your password!" }]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="Email"
-            name="email"
-            rules={[
-              {
-                required: true,
-                message: "Please input your email!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="Tel."
-            name="tel"
-            rules={[
-              {
-                required: true,
-                message: "Please input your telephone number!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Row justify="center">
-            <Form.Item>
-              <Button type="primary" htmlType="submit">
-                Submit
-              </Button>
+            <Form.Item
+              label="Firstname"
+              name="firstname"
+              rules={[
+                { required: true, message: "Please input your first name!" },
+              ]}
+            >
+              <Input />
             </Form.Item>
-          </Row>
-        </Form>
-      </MainLayouts>
-    </>
-  );
+
+            <Form.Item
+              label="Lastname"
+              name="lastname"
+              rules={[
+                { required: true, message: "Please input your last name!" },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="Username"
+              name="username"
+              rules={[
+                { required: true, message: "Please input your user name!" },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={[
+                { required: true, message: "Please input your password!" },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="Email"
+              name="email"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your email!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="Tel."
+              name="tel"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your telephone number!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Row justify="center">
+              <Form.Item>
+                <Button type="primary" htmlType="submit">
+                  Submit
+                </Button>
+              </Form.Item>
+            </Row>
+          </Form>
+        </MainLayouts>
+      </>
+    );
+  }
 };
 export default Register;

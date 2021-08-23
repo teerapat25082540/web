@@ -12,12 +12,15 @@ import EditVaccineForm from "../components/EditVaccineForm";
 import moment from "moment";
 import Highlighter from "react-highlight-words";
 import "../styles/EditVaccineForm.css";
+import { useHistory } from "react-router-dom";
 
 function ManageVaccine() {
   const mapKey: string = "f065b431c7c8afab7264d32ca7a8a11e";
   const [vaccine, setVaccine] = useState<object[]>([]);
   const [searchText, setSearchText] = useState<string>("");
   const [searchedColumn, setSearchedColumn] = useState<string>("");
+  const accessToken = localStorage.getItem("accessToken");
+  const history = useHistory();
 
   const handleSearch = (selectedKeys: any, confirm: any, dataIndex: any) => {
     confirm();
@@ -144,7 +147,10 @@ function ManageVaccine() {
       cancelText: "ยกเลิก",
       onOk: async () => {
         await axios.delete(`http://localhost:4000/api/vaccine/${id}`, {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
         });
         setVaccine([]);
         getVaccine();
@@ -161,7 +167,10 @@ function ManageVaccine() {
       cancelText: "ยกเลิก",
       onOk: async () => {
         await axios.put(`http://localhost:4000/api/vaccine/${id}`, body, {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
         });
         setVaccine([]);
         getVaccine();
@@ -170,8 +179,13 @@ function ManageVaccine() {
   };
 
   const getVaccine = async () => {
-    let testUserId = "a6a96d52-7748-4df5-85a1-dc96c9f0d0";
-    let res = await axios(`http://localhost:4000/api/vaccine/${testUserId}`);
+    let UserId = localStorage.getItem("id");
+    let res = await axios.get(`http://localhost:4000/api/vaccine/${UserId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     let vaccineList: object[] = [];
     res.data.forEach((item: any, index: any) => {
       let itemVaccine: object = {
@@ -229,7 +243,6 @@ function ManageVaccine() {
       `https://api.longdo.com/map/services/address?lon=${item.long}&lat=${item.lat}&key=${mapKey}`
     );
     let address = res.data;
-    // console.log(address);
     Modal.info({
       title: <h4>{item.name}</h4>,
       width: 550,
@@ -301,20 +314,24 @@ function ManageVaccine() {
   useEffect(() => {
     getVaccine();
   }, [vaccine.length]);
-
-  return (
-    <>
-      <MainLayouts page="2">
-        <Table
-          style={{ padding: 15 }}
-          columns={columns}
-          dataSource={vaccine}
-          scroll={{ y: 520 }}
-          pagination={{ pageSize: 5 }}
-        />
-      </MainLayouts>
-    </>
-  );
+  if (!accessToken) {
+    history.push("/login");
+    return null;
+  } else {
+    return (
+      <>
+        <MainLayouts page="2">
+          <Table
+            style={{ padding: 15 }}
+            columns={columns}
+            dataSource={vaccine}
+            scroll={{ y: 520 }}
+            pagination={{ pageSize: 5 }}
+          />
+        </MainLayouts>
+      </>
+    );
+  }
 }
 
 export default ManageVaccine;

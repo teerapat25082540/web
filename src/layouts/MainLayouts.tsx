@@ -33,6 +33,7 @@ import axios from "axios";
 import { TypeNewVaccine } from "../DataType";
 import ListSearch from "../components/ListSearch";
 
+
 const { Header, Sider } = Layout;
 const { confirm } = Modal;
 
@@ -89,12 +90,16 @@ function MainLayouts({
 
   // sunmit form success
   const onFinish = async (values: any) => {
+    let user_id: any = localStorage.getItem("id");
+    let email: any = localStorage.getItem("email");
+    let tel: any = localStorage.getItem("tel");
+
     const newVaccine: TypeNewVaccine = {
-      user_id: "a6a96d52-7748-4df5-85a1-dc96c9f0d0",
+      user_id: user_id,
       name: values.vaccine,
       amount: Number(values.amount),
-      email: "teerapat.seeharach@gmail.com",
-      tel: "0982612614",
+      email: email,
+      tel: tel,
       lat: lat,
       long: lon,
       description: values.description,
@@ -102,7 +107,12 @@ function MainLayouts({
     await axios.post(
       "http://localhost:4000/api/vaccine",
       JSON.stringify(newVaccine),
-      { headers: { "Content-Type": "application/json" } }
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     setModalAddData(false);
     resetMarker();
@@ -187,6 +197,9 @@ function MainLayouts({
             theme="dark"
             defaultSelectedKeys={["1"]}
           >
+            <Menu.Item key="1" icon={<FaMapMarkedAlt />}>
+              จุดรับวัคซีน
+            </Menu.Item>
             {token ? null : (
               <Menu.Item key="3" icon={<FaUser />}>
                 เข้าสู่ระบบ
@@ -200,11 +213,6 @@ function MainLayouts({
             {token ? (
               <Menu.Item key="5" icon={<ProfileOutlined />}>
                 โปรไฟล์
-              </Menu.Item>
-            ) : null}
-            {token ? (
-              <Menu.Item key="1" icon={<FaMapMarkedAlt />}>
-                จุดรับวัคซีน
               </Menu.Item>
             ) : null}
             {token ? (

@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./styles/App.css";
 
 function App() {
+  const token = localStorage.getItem("accessToken");
   return (
     <Router>
       <div>
