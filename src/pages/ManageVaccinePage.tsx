@@ -192,7 +192,7 @@ function ManageVaccine() {
         key: index,
         id: item.id,
         name: item.name,
-        amount: item.amount,
+        amount: Intl.NumberFormat().format(item.amount),
         email: item.email,
         tel: item.tel,
         lat: item.lat,

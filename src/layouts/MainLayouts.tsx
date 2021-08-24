@@ -147,9 +147,9 @@ function MainLayouts({
 
   const logOut = async () => {
     Modal.confirm({
-      title: "Logout",
+      title: "ออกจากระบบ",
       icon: <ExclamationCircleOutlined />,
-      content: "Do you want to Log out?",
+      content: "คุณต้องการออกจากระบบ?",
       okText: "Ok",
       cancelText: "Cancel",
       onOk: async () => {

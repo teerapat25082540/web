@@ -56,13 +56,15 @@ const EditUser = ({ update }: Props) => {
         className="edit-md"
         visible={isModalVisible}
         footer={null}
-        title="Edit User"
+        centered
+        title="แก้ไขโปรไฟล์"
         onCancel={handleCancel}
       >
         <Form
           name="basic"
           onFinish={onFinish}
           //form={form}
+          layout="vertical"
           initialValues={{
             firstname: data.firstname,
             lastname: data.lastname,
@@ -72,70 +74,75 @@ const EditUser = ({ update }: Props) => {
           }}
         >
           <Form.Item
-            labelCol={{ span: 5 }}
-            label="Firstname"
             name="firstname"
-            rules={[
-              { required: true, message: "Please input your first name!" },
-            ]}
+            label="ชื่อจริง"
+            rules={[{ required: true, message: "กรุณากรอกชื่อจริง" }]}
+            style={{ display: "inline-block", width: "14.5rem" }}
           >
-            <Input />
+            <Input placeholder="ชื่อจริง" />
           </Form.Item>
-
           <Form.Item
-            labelCol={{ span: 5 }}
-            label="Lastname"
             name="lastname"
-            rules={[
-              { required: true, message: "Please input your last name!" },
-            ]}
+            label="นามสกุล"
+            rules={[{ required: true, message: "กรุณากรอกนามสกุล" }]}
+            style={{
+              display: "inline-block",
+              width: "14.5rem",
+              marginLeft: 8,
+            }}
           >
-            <Input />
+            <Input placeholder="นามสกุล" />
           </Form.Item>
 
           <Form.Item
-            labelCol={{ span: 5 }}
-            label="Username"
+            label="ชื่อผู้ใช้"
             name="username"
-            rules={[
-              { required: true, message: "Please input your user name!" },
-            ]}
+            rules={[{ required: true, message: "กรุณากรอกชื่อผู้ใช้" }]}
           >
-            <Input />
+            <Input placeholder="ชื่อผู้ใช้" />
           </Form.Item>
 
           <Form.Item
-            labelCol={{ span: 5 }}
-            label="Email"
+            label="อีเมล"
             name="email"
             rules={[
               {
                 required: true,
-                message: "Please input your email!",
+                message: "กรุณากรอกอีเมล",
+              },
+              {
+                type: "email",
+                message: "รูปแบบอีเมลไม่ถูกต้อง ตัวอย่าง example@hotmail.com",
               },
             ]}
           >
-            <Input />
+            <Input placeholder="อีเมล" />
           </Form.Item>
-
           <Form.Item
-            labelCol={{ span: 5 }}
-            label="TelNum"
+            label="เบอร์ติดต่อ"
             name="tel"
             rules={[
               {
                 required: true,
-                message: "Please input your telephone number!",
+                message: "กรุณากรอกเบอร์ติดต่อ",
+              },
+              {
+                pattern: /^!*([0-9]!*){9,10}/,
+                message: `รูปแบบหมายเลขโทรศัพท์ไม่ถูกต้อง`,
               },
             ]}
           >
-            <Input />
+            <Input placeholder="เบอร์ติดต่อ" maxLength={10} />
           </Form.Item>
 
           <Row justify="center">
             <Form.Item>
-              <Button type="primary" htmlType="submit">
-                Update
+              <Button
+                type="primary"
+                htmlType="submit"
+                style={{ width: "29.5rem", marginTop: "1rem" }}
+              >
+                บันทึก
               </Button>
             </Form.Item>
           </Row>

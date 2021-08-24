@@ -94,36 +94,48 @@ const Profile = () => {
     return (
       <>
         <MainLayouts page="5">
-          <Card
-            title={<h1 style={{ textAlign: "center" }}>Profile</h1>}
-            style={{ width: 300, margin: "auto" }}
-          >
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <Avatar size={64} icon={<UserOutlined />} />
-            </div>
-
-            <h4>ชื่อ: {res?.firstname}</h4>
-            <h4>นามสกุล: {res?.lastname}</h4>
-            <h4>username: {res?.username}</h4>
-            <h4>email: {res?.email}</h4>
-            <h4>เบอร์โทร: {res?.tel}</h4>
-            <Row justify="center">
-              <Button
-                onClick={() => {
-                  deleteUser();
+          <div style={{ marginTop: "4rem" }}>
+            <Card
+              title={<h1 style={{ textAlign: "center" }}>โปรไฟล์</h1>}
+              style={{ width: "30rem", margin: "auto" }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginBottom: 15,
                 }}
-                type="primary"
-                danger
-                icon={<DeleteOutlined />}
-                className="btn-action"
-                style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
               >
-                ลบข้อมูล
-              </Button>
+                <Avatar size={64} icon={<UserOutlined />} />
+              </div>
 
-              <EditUser update={updateUser} />
-            </Row>
-          </Card>
+              <h4>
+                ชื่อ : {res?.firstname} {res?.lastname}
+              </h4>
+              <h4>ชื่อผู้ใช้ : {res?.username}</h4>
+              <h4>อีเมล : {res?.email}</h4>
+              <h4>เบอร์ติดต่อ : {res?.tel}</h4>
+              <Row justify="center" style={{ marginTop: "2rem" }}>
+                <Button
+                  onClick={() => {
+                    deleteUser();
+                  }}
+                  type="primary"
+                  danger
+                  icon={<DeleteOutlined />}
+                  className="btn-action"
+                  style={{
+                    borderTopRightRadius: 0,
+                    borderBottomRightRadius: 0,
+                  }}
+                >
+                  ลบข้อมูล
+                </Button>
+
+                <EditUser update={updateUser} />
+              </Row>
+            </Card>
+          </div>
         </MainLayouts>
       </>
     );

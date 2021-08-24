@@ -20,7 +20,7 @@ const Login = () => {
       localStorage.setItem("accessToken", res.data.accessToken);
       if (res.data.accessToken) {
         Modal.success({
-          content: "Login Success!",
+          content: "เข้าสู่ระบบสำเร็จ!",
         });
 
         form.resetFields();
@@ -28,12 +28,12 @@ const Login = () => {
         history.push("/");
       } else {
         Modal.error({
-          content: "Username or Password is incorrect!",
+          content: "ชื่อผู่ใช้หรือรหัสผ่านไม่ถูกต้อง!",
         });
       }
     } catch (error) {
       Modal.error({
-        content: "Username or Password is incorrect!",
+        content: "ชื่อผู่ใช้หรือรหัสผ่านไม่ถูกต้อง!",
       });
     }
   };
