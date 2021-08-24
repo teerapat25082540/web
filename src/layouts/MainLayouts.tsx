@@ -33,7 +33,6 @@ import axios from "axios";
 import { TypeNewVaccine } from "../DataType";
 import ListSearch from "../components/ListSearch";
 
-
 const { Header, Sider } = Layout;
 const { confirm } = Modal;
 
@@ -80,7 +79,7 @@ function MainLayouts({
       title: "ยืนยันการเพิ่มข้อมูล",
       icon: <ExclamationCircleOutlined />,
       centered: true,
-      content: "เพิ่มข้อมูลสำเร็จขอบคุณที่ให้ข้อมูลกับแอพพลิเคชั่น",
+      content: "คุณต้องการเพิ่มข้อมูลนี้ใช่หรือไม่ ?",
       onOk() {
         onFinish(values);
       },

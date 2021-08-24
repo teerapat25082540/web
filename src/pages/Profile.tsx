@@ -1,15 +1,17 @@
-import { Table, Button, Modal, Form, Row, Card, Col, Avatar } from "antd";
+import { Button, Modal, Row, Card, Avatar } from "antd";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { typeUser } from "../DataType";
-import { DeleteOutlined, DeleteTwoTone, ExclamationCircleOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  ExclamationCircleOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import EditUser from "./EditUser";
 import MainLayouts from "../layouts/MainLayouts";
 import { useHistory } from "react-router";
 
 const Profile = () => {
   const [res, setRes] = useState<any>({});
-  const [form] = Form.useForm();
   const history = useHistory();
 
   const accessToken = localStorage.getItem("accessToken");
@@ -34,7 +36,7 @@ const Profile = () => {
       okText: "Ok",
       cancelText: "Cancel",
       onOk: async () => {
-        const res = await axios.delete(`http://localhost:4000/api/user/${id}`, {
+        await axios.delete(`http://localhost:4000/api/user/${id}`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
@@ -45,7 +47,7 @@ const Profile = () => {
     });
   };
 
-  const updateData = async () =>{
+  const updateData = async () => {
     let accessToken = localStorage.getItem("accessToken");
     const res = await axios.post(
       `http://localhost:4000/api/user/getuser`,
@@ -70,19 +72,16 @@ const Profile = () => {
       email: localStorage.getItem("email"),
       tel: localStorage.getItem("tel"),
     });
-
-  }
-
+  };
 
   const updateUser = async (value: any) => {
     console.log(value);
     const id = localStorage.getItem("id");
-    const res = await axios.put(`http://localhost:4000/api/user/${id}`, value, {
+    await axios.put(`http://localhost:4000/api/user/${id}`, value, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    //form.resetFields();
     updateData();
     const fir = localStorage.getItem("firstname");
     console.log(fir);
@@ -94,32 +93,36 @@ const Profile = () => {
   } else {
     return (
       <>
-      <MainLayouts page="5">
-      <Card title={(<h1 style={{textAlign:"center"}}>Profile</h1>)}  style={{ width: 300, margin:"auto"}} >
-        <div style={{display:"flex",justifyContent: "center"}}><Avatar size={64}  icon={<UserOutlined />} /></div>
-      
-          <h4>ชื่อ: {res?.firstname}</h4>
-          <h4>นามสกุล: {res?.lastname}</h4>
-          <h4>username: {res?.username}</h4>
-          <h4>email: {res?.email}</h4>
-          <h4>เบอร์โทร: {res?.tel}</h4>
-          <Row justify="center">
-          <Button
-              onClick={() => {
-                deleteUser();
-              }}
-              type="primary"
-              danger
-              icon={<DeleteOutlined />}
-              className="btn-action"
-              style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
-            >
-              ลบข้อมูล
-            </Button>
+        <MainLayouts page="5">
+          <Card
+            title={<h1 style={{ textAlign: "center" }}>Profile</h1>}
+            style={{ width: 300, margin: "auto" }}
+          >
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <Avatar size={64} icon={<UserOutlined />} />
+            </div>
 
+            <h4>ชื่อ: {res?.firstname}</h4>
+            <h4>นามสกุล: {res?.lastname}</h4>
+            <h4>username: {res?.username}</h4>
+            <h4>email: {res?.email}</h4>
+            <h4>เบอร์โทร: {res?.tel}</h4>
+            <Row justify="center">
+              <Button
+                onClick={() => {
+                  deleteUser();
+                }}
+                type="primary"
+                danger
+                icon={<DeleteOutlined />}
+                className="btn-action"
+                style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+              >
+                ลบข้อมูล
+              </Button>
 
-            <EditUser update={updateUser} />
-          </Row>
+              <EditUser update={updateUser} />
+            </Row>
           </Card>
         </MainLayouts>
       </>

@@ -9,12 +9,10 @@ import MainLayouts from "../layouts/MainLayouts";
 const HomePage = () => {
   // state
   const [country, setCountry] = useState<string | null>(null);
-  // const [geocode, setGeocode] = useState<string | null>(null);
   const [province, setProvince] = useState<string | null>(null);
   const [district, setDistrict] = useState<string | null>(null);
   const [subdistrict, setSubdistrict] = useState<string | null>(null);
   const [postcode, setPostcode] = useState<string>("");
-  // const [elevation, setElevation] = useState<number | null>(0);
   const [road, setRoad] = useState<String | null>(null);
   const [description, setDescription] = useState<string | null>();
   const [email, setEmail] = useState<string>("");
@@ -59,6 +57,9 @@ const HomePage = () => {
   const showDrawer = async () => {
     setLoadingRoute(true);
     let location: any = await getCurrentLocation();
+    let res = await axios(
+      `https://api.longdo.com/map/services/address?lon=${location[1]}&lat=${location[0]}&key=${mapKey}`
+    );
     setIsDrawerVisible(true);
     if (latDestination != null) {
       setInvalidRoute(true);
@@ -68,8 +69,16 @@ const HomePage = () => {
         new longdo.Marker(
           { lon: location[1], lat: location[0] },
           {
-            title: "Victory monument",
-            detail: "I'm here",
+            title: "คุณอยู่ที่นี่",
+            detail: `${res.data.aoi ? res.data.aoi : ""} ${
+              res.data.road ? res.data.road : ""
+            } ${res.data.district ? res.data.district : ""} ${
+              res.data.subdistrict ? res.data.subdistrict : ""
+            } ${res.data.province ? res.data.province : ""} ${
+              res.data.country ? res.data.country : ""
+            } ${res.data.country ? res.data.country : ""} ${
+              res.data.postcode ? res.data.postcode : ""
+            }`,
           }
         )
       );
@@ -108,19 +117,18 @@ const HomePage = () => {
     let res = await axios(
       `https://api.longdo.com/map/services/address?lon=${location[1]}&lat=${location[0]}&key=${mapKey}`
     );
-    // console.log(res.data);
     userMarker = new longdo.Marker(
       { lon: location[1], lat: location[0] },
       {
         title: "คุณอยู่ที่นี่",
-        detail: `${res.data.aoi && res.data.aoi} ${
-          res.data.road && res.data.road
-        } ${res.data.district && res.data.district} ${
-          res.data.subdistrict && res.data.subdistrict
-        } ${res.data.province && res.data.province} ${
-          res.data.country && res.data.country
-        } ${res.data.country && res.data.country} ${
-          res.data.postcode && res.data.postcode
+        detail: `${res.data.aoi ? res.data.aoi : ""} ${
+          res.data.road ? res.data.road : ""
+        } ${res.data.district ? res.data.district : ""} ${
+          res.data.subdistrict ? res.data.subdistrict : ""
+        } ${res.data.province ? res.data.province : ""} ${
+          res.data.country ? res.data.country : ""
+        } ${res.data.country ? res.data.country : ""} ${
+          res.data.postcode ? res.data.postcode : ""
         }`,
       }
     );
@@ -147,6 +155,7 @@ const HomePage = () => {
 
   // set marker vaccine
   const setMarker = (data: TypeVaccine[]) => {
+    map.Overlays.clear();
     let vaccineList: any = [];
     data.forEach((item, index) => {
       vaccineList[index] = new longdo.Marker(
@@ -300,7 +309,7 @@ const HomePage = () => {
           )}
         </address>
 
-        <h4 style={{ fontWeight: "bold" }}>Contact</h4>
+        <h4 style={{ fontWeight: "bold" }}>ช่องทางการติดต่อ</h4>
         <p>
           {email && (
             <span>

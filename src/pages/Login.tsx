@@ -1,24 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { Modal, Form, Input, Button, Row } from "antd";
 import { typeUser } from "../DataType";
 import axios from "axios";
 import MainLayouts from "../layouts/MainLayouts";
 import { useHistory } from "react-router-dom";
-import HomePage from "./HomePage";
 
 const Login = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
   const history = useHistory();
   const accessToken = localStorage.getItem("accessToken");
-
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
 
   const LoginHandler = async (data: typeUser) => {
     try {
@@ -32,12 +22,11 @@ const Login = () => {
         Modal.success({
           content: "Login Success!",
         });
-      
+
         form.resetFields();
         getUserLogged();
-        setIsModalVisible(false);
         history.push("/");
-      }else{
+      } else {
         Modal.error({
           content: "Email or Password is incorrect!",
         });

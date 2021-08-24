@@ -197,8 +197,7 @@ function ManageVaccine() {
         tel: item.tel,
         lat: item.lat,
         long: item.long,
-        createAt: moment(item.createAt).format("DD MMMM YYYY"),
-        /* createAt: moment(item.createAt).format("L"), */
+        createAt: moment(item.createAt).format("DD MMMM YYYY hh:mm"),
         action: (
           <>
             <Button

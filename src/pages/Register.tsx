@@ -1,23 +1,14 @@
 import { Button, Form, Input, Modal, Row } from "antd";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import axios from "axios";
 import { typeNewUser } from "../DataType";
 import MainLayouts from "../layouts/MainLayouts";
 import { useHistory } from "react-router";
 
 const Register = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
   const history = useHistory();
   const accessToken = localStorage.getItem("accessToken");
-
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
 
   const addNewUserHandler = async (data: typeNewUser) => {
     try {
@@ -41,7 +32,6 @@ const Register = () => {
     console.log(data);
 
     form.resetFields();
-    //setIsModalVisible(false);
   };
 
   if (accessToken) {

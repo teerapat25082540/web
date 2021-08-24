@@ -1,16 +1,13 @@
 import { Button, Form, Input, Modal, Row } from "antd";
-import axios from "axios";
 import React, { useState } from "react";
-import { typeUser } from "../DataType";
 import { EditOutlined } from "@ant-design/icons";
 
 type Props = {
   update: any;
 };
 
-const EditUser = ({update}: Props) => {
+const EditUser = ({ update }: Props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [res, setRes] = useState<typeUser>();
   const [data, setData] = useState<any>({});
 
   //const [form] = Form.useForm();
@@ -31,31 +28,29 @@ const EditUser = ({update}: Props) => {
     setIsModalVisible(false);
   };
 
-const onFinish = (value: any) =>{
-  update(value);
-  setIsModalVisible(false);
-}
-
-
+  const onFinish = (value: any) => {
+    update(value);
+    setIsModalVisible(false);
+  };
 
   return (
     <>
       <Button
-              onClick={() => {
-                showModal();
-              }}
-              type="primary"
-              icon={<EditOutlined />}
-              className="btn-action"
-              style={{
-                borderRadius: 0,
-                backgroundColor: "#ffc404",
-                borderColor: "#ffc404",
-              }}
-              //style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
-            >
-              แก้ไขข้อมูล
-            </Button>
+        onClick={() => {
+          showModal();
+        }}
+        type="primary"
+        icon={<EditOutlined />}
+        className="btn-action"
+        style={{
+          borderRadius: 0,
+          backgroundColor: "#ffc404",
+          borderColor: "#ffc404",
+        }}
+        //style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+      >
+        แก้ไขข้อมูล
+      </Button>
 
       <Modal
         className="edit-md"
