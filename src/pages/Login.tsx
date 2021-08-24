@@ -28,12 +28,12 @@ const Login = () => {
         history.push("/");
       } else {
         Modal.error({
-          content: "Email or Password is incorrect!",
+          content: "Username or Password is incorrect!",
         });
       }
     } catch (error) {
       Modal.error({
-        content: "Email or Password is incorrect!",
+        content: "Username or Password is incorrect!",
       });
     }
   };
