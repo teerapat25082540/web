@@ -121,7 +121,7 @@ const Register = () => {
                         },
                       ]}
                     >
-                      <Input placeholder="เบอร์ติดต่อ" />
+                      <Input placeholder="เบอร์ติดต่อ" maxLength={10} />
                     </Form.Item>
 
                     <Row justify="center">
