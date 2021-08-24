@@ -117,6 +117,7 @@ function MainLayouts({
     setModalAddData(false);
     resetMarker();
     form.resetFields();
+    map.Overlays.clear();
   };
 
   // select item address
