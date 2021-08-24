@@ -10,6 +10,8 @@ const Register = () => {
   const history = useHistory();
   const accessToken = localStorage.getItem("accessToken");
 
+  
+
   const addNewUserHandler = async (data: typeNewUser) => {
     try {
       const res = await axios.post(
@@ -107,12 +109,7 @@ const Register = () => {
             <Form.Item
               label="Tel."
               name="tel"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your telephone number!",
-                },
-              ]}
+              rules={[ { required: true, message: "Please input your telephone number!", }, { pattern: /^!*([0-9]!*){10,10}/, message: `isn't a phone number with area code!` } ]}
             >
               <Input />
             </Form.Item>
