@@ -53,6 +53,7 @@ function MainLayouts({
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [lat, setLat] = useState<number>(0);
   const [lon, setLon] = useState<number>(0);
+  const [form] = Form.useForm();
 
   const token = localStorage.getItem("accessToken");
 
@@ -115,6 +116,7 @@ function MainLayouts({
     );
     setModalAddData(false);
     resetMarker();
+    form.resetFields();
   };
 
   // select item address
@@ -299,6 +301,7 @@ function MainLayouts({
         >
           <Form
             id="myForm"
+            form={form}
             layout="vertical"
             name="nest-messages"
             onFinish={confirmSubmit}
