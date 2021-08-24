@@ -10,8 +10,6 @@ const Register = () => {
   const history = useHistory();
   const accessToken = localStorage.getItem("accessToken");
 
-  
-
   const addNewUserHandler = async (data: typeNewUser) => {
     try {
       const res = await axios.post(
@@ -94,8 +92,10 @@ const Register = () => {
               label="Email"
               name="email"
               rules={[
-                {	type: 'email',
-                  message: 'The input is not valid E-mail! e.g. example@mail.com',
+                {
+                  type: "email",
+                  message:
+                    "The input is not valid E-mail! e.g. example@mail.com",
                 },
                 {
                   required: true,
@@ -109,9 +109,18 @@ const Register = () => {
             <Form.Item
               label="Tel."
               name="tel"
-              rules={[ { required: true, message: "Please input your telephone number!", }, { pattern: /^!*([0-9]!*){10,10}/, message: `isn't a phone number with area code!` } ]}
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your telephone number!",
+                },
+                {
+                  pattern: /^!*([0-9]!*){10,10}/,
+                  message: `isn't a phone number with area code!`,
+                },
+              ]}
             >
-              <Input />
+              <Input placeholder="0xxxxxxxxx" maxLength={10} />
             </Form.Item>
 
             <Row justify="center">
