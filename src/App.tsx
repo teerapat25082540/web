@@ -1,10 +1,10 @@
 import React from "react";
 import HomePage from "./pages/HomePage";
-import ManagePage from "./pages/ManageVaccine";
-import ErrorPage from "./pages/Error";
-import LoginPage from "./pages/Login";
-import RegisterPage from "./pages/Register";
-import ProfilePage from "./pages/Profile";
+import ManagePage from "./pages/ManageVaccinePage";
+import ErrorPage from "./pages/ErrorPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import ProfilePage from "./pages/ProfilePage";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./styles/App.css";
 

@@ -6,7 +6,7 @@ import {
   ExclamationCircleOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import EditUser from "./EditUser";
+import EditUser from "./EditUserPage";
 import MainLayouts from "../layouts/MainLayouts";
 import { useHistory } from "react-router";
 
