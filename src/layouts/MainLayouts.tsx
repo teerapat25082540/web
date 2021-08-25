@@ -290,9 +290,9 @@ function MainLayouts({
           centered
           visible={modalAddData}
           width={600}
-          onCancel={() => setModalAddData(false)}
+          onCancel={() =>  {setModalAddData(false); form.resetFields();}}
           footer={[
-            <Button key="back" onClick={() => setModalAddData(false)}>
+            <Button key="back" onClick={() => {setModalAddData(false); form.resetFields();}}>
               Cancel
             </Button>,
             <Button key="submit" type="primary" htmlType="submit" form="myForm">
