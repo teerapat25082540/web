@@ -20,6 +20,7 @@ const EditVaccineForm = ({ vaccine, editVaccineHandle, index }: Props) => {
   const [lon, setLon] = useState<number>(vaccine.long);
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const addressRef = useRef<any>();
+  const vaccineRef = useRef<any>();
   const formRef = useRef<any>();
   const [check,setCheck] = useState<boolean>(false)
 
@@ -56,6 +57,7 @@ const EditVaccineForm = ({ vaccine, editVaccineHandle, index }: Props) => {
       );
       map.location({ lon: vaccine.long, lat: vaccine.lat }, true);
     }
+    
     setAddress();
   };
 
@@ -66,6 +68,13 @@ const EditVaccineForm = ({ vaccine, editVaccineHandle, index }: Props) => {
 
   const handleCancel = () => {
     setIsModalVisible(false);
+    formRef.current.setFieldsValue({
+      vaccine: vaccine.name,
+      amount: vaccine.amount,
+      description: vaccine.description,
+      email: vaccine.email,
+      tel: vaccine.tel,
+    })
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -161,7 +170,7 @@ const EditVaccineForm = ({ vaccine, editVaccineHandle, index }: Props) => {
               rules={[{ required: true, message: "กรุณากรอกชื่อวัคซีน" }]}
               style={{ display: "inline-block", width: "calc(50%)" }}
             >
-              <Input placeholder="ชื่อวัคซีน" />
+              <Input placeholder="ชื่อวัคซีน" ref={vaccineRef} />
             </Form.Item>
             <Form.Item
               name="amount"
