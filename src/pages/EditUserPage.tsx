@@ -1,5 +1,5 @@
 import { Button, Form, Input, Modal, Row } from "antd";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { EditOutlined } from "@ant-design/icons";
 
 type Props = {
@@ -9,6 +9,7 @@ type Props = {
 const EditUser = ({ update }: Props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [data, setData] = useState<any>({});
+  const formRef = useRef<any>()
 
   //const [form] = Form.useForm();
 
@@ -26,6 +27,13 @@ const EditUser = ({ update }: Props) => {
   };
   const handleCancel = () => {
     setIsModalVisible(false);
+    formRef.current.setFieldsValue({
+      firstname: data.firstname,
+      lastname: data.lastname,
+      username: data.username,
+      email: data.email,
+      tel: data.tel,
+    })
   };
 
   const onFinish = (value: any) => {
@@ -63,6 +71,7 @@ const EditUser = ({ update }: Props) => {
         <Form
           name="basic"
           onFinish={onFinish}
+          ref={formRef}
           //form={form}
           layout="vertical"
           initialValues={{
