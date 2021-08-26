@@ -170,7 +170,7 @@ const EditVaccineForm = ({ vaccine, editVaccineHandle, index }: Props) => {
               rules={[{ required: true, message: "กรุณากรอกชื่อวัคซีน" }]}
               style={{ display: "inline-block", width: "calc(50%)" }}
             >
-              <Select >
+              <Select>
                 <Option value="">โปรดเลือก</Option>
                 <Option value="Pfizer">Pfizer</Option>
                 <Option value="Moderna">Moderna</Option>
@@ -207,7 +207,16 @@ const EditVaccineForm = ({ vaccine, editVaccineHandle, index }: Props) => {
           <Form.Item
             label="อีเมล"
             name="email"
-            rules={[{ required: true, message: "กรุณากรอกอีเมล" }]}
+            rules={[
+              {
+                required: true,
+                message: "กรุณากรอกอีเมล",
+              },
+              {
+                type: "email",
+                message: "รูปแบบอีเมลไม่ถูกต้อง ตัวอย่าง example@hotmail.com",
+              },
+            ]}
           >
             <Input placeholder="อีเมล" />
           </Form.Item>
@@ -215,9 +224,18 @@ const EditVaccineForm = ({ vaccine, editVaccineHandle, index }: Props) => {
           <Form.Item
             label="เบอร์ติดต่อ"
             name="tel"
-            rules={[{ required: true, message: "กรุณากรอกเบอร์ติดต่อ" }]}
+            rules={[
+              {
+                required: true,
+                message: "กรุณากรอกเบอร์ติดต่อ",
+              },
+              {
+                pattern: /^!*([0-9]!*){9,10}/,
+                message: `รูปแบบหมายเลขโทรศัพท์ไม่ถูกต้อง`,
+              },
+            ]}
           >
-            <Input placeholder="เบอร์ติดต่อ" />
+            <Input placeholder="เบอร์ติดต่อ" maxLength={10} />
           </Form.Item>
 
           <Form.Item
