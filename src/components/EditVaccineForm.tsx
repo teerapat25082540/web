@@ -20,7 +20,6 @@ const EditVaccineForm = ({ vaccine, editVaccineHandle, index }: Props) => {
   const [lon, setLon] = useState<number>(vaccine.long);
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const addressRef = useRef<any>();
-  const vaccineRef = useRef<any>();
   const formRef = useRef<any>();
   const [check, setCheck] = useState<boolean>(false);
   const { Option } = Select;
@@ -184,7 +183,6 @@ const EditVaccineForm = ({ vaccine, editVaccineHandle, index }: Props) => {
                 <Option value="Covishield">Covishield</Option>
                 <Option value="Covaxin">Covaxin</Option>
               </Select>
-              {/* <Input placeholder="ชื่อวัคซีน" ref={vaccineRef} /> */}
             </Form.Item>
             <Form.Item
               name="amount"

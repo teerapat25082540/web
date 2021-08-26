@@ -312,7 +312,8 @@ function ManageVaccine() {
 
   useEffect(() => {
     getVaccine();
-  }, [vaccine.length]);
+  });
+
   if (!accessToken) {
     history.push("/login");
     return null;
