@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Modal, Button, Input, InputNumber, Form } from "antd";
+import { Modal, Button, Input, InputNumber, Form, Select } from "antd";
 import ListSearch from "./ListSearch";
 import axios from "axios";
 import { map, longdo, MapEditForm } from "../components/MapEditForm";
@@ -22,7 +22,8 @@ const EditVaccineForm = ({ vaccine, editVaccineHandle, index }: Props) => {
   const addressRef = useRef<any>();
   const vaccineRef = useRef<any>();
   const formRef = useRef<any>();
-  const [check,setCheck] = useState<boolean>(false)
+  const [check, setCheck] = useState<boolean>(false);
+  const { Option } = Select;
 
   const initMap = () => {
     map.Overlays.clear();
@@ -32,7 +33,7 @@ const EditVaccineForm = ({ vaccine, editVaccineHandle, index }: Props) => {
       new longdo.Marker({ lon: vaccine.long, lat: vaccine.lat })
     );
     map.location({ lon: vaccine.long, lat: vaccine.lat }, true);
-    setCheck(true)
+    setCheck(true);
   };
 
   const setAddress = async () => {
@@ -50,14 +51,14 @@ const EditVaccineForm = ({ vaccine, editVaccineHandle, index }: Props) => {
 
   const showModal = () => {
     setIsModalVisible(true);
-    if(check){
+    if (check) {
       map.zoom(10);
       map.Overlays.add(
         new longdo.Marker({ lon: vaccine.long, lat: vaccine.lat })
       );
       map.location({ lon: vaccine.long, lat: vaccine.lat }, true);
     }
-    
+
     setAddress();
   };
 
@@ -74,7 +75,7 @@ const EditVaccineForm = ({ vaccine, editVaccineHandle, index }: Props) => {
       description: vaccine.description,
       email: vaccine.email,
       tel: vaccine.tel,
-    })
+    });
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -82,7 +83,6 @@ const EditVaccineForm = ({ vaccine, editVaccineHandle, index }: Props) => {
   };
 
   const onFinish = async (values: any) => {
-    
     let newVaccine = {
       user_id: vaccine.user_id,
       name: values.vaccine,
@@ -170,7 +170,21 @@ const EditVaccineForm = ({ vaccine, editVaccineHandle, index }: Props) => {
               rules={[{ required: true, message: "กรุณากรอกชื่อวัคซีน" }]}
               style={{ display: "inline-block", width: "calc(50%)" }}
             >
-              <Input placeholder="ชื่อวัคซีน" ref={vaccineRef} />
+              <Select >
+                <Option value="">โปรดเลือก</Option>
+                <Option value="Pfizer">Pfizer</Option>
+                <Option value="Moderna">Moderna</Option>
+                <Option value="Johnson & Johnson">Johnson & Johnson</Option>
+                <Option value="Novavax">Novavax</Option>
+                <Option value="AstraZeneca">AstraZeneca</Option>
+                <Option value="Sputnik-V">Sputnik-V</Option>
+                <Option value="Sinovac">Sinovac</Option>
+                <Option value="Sinopharm">Sinopharm</Option>
+                <Option value="CanSino">CanSino</Option>
+                <Option value="Covishield">Covishield</Option>
+                <Option value="Covaxin">Covaxin</Option>
+              </Select>
+              {/* <Input placeholder="ชื่อวัคซีน" ref={vaccineRef} /> */}
             </Form.Item>
             <Form.Item
               name="amount"
@@ -211,16 +225,13 @@ const EditVaccineForm = ({ vaccine, editVaccineHandle, index }: Props) => {
             name="description"
             rules={[{ required: true, message: "กรุณากรอกรายละเอียด" }]}
           >
-            <TextArea
-              placeholder="รายละเอียด"
-              rows={3}
-            />
+            <TextArea placeholder="รายละเอียด" rows={3} />
           </Form.Item>
 
           <Form.Item
             name="search"
             label="พิกัดที่อยู่"
-           // rules={[{ required: true, message: "กรุณากรอกพิกัดที่อยู่" }]}
+            // rules={[{ required: true, message: "กรุณากรอกพิกัดที่อยู่" }]}
           >
             <div>
               <Input
@@ -233,11 +244,11 @@ const EditVaccineForm = ({ vaccine, editVaccineHandle, index }: Props) => {
             </div>
           </Form.Item>
           <div id="box-map" style={{ height: "250px", marginTop: "10px" }}>
-          <MapEditForm
-                id={`longdo-map${index}`}
-                mapKey={mapKey}
-                callback={initMap}
-              />
+            <MapEditForm
+              id={`longdo-map${index}`}
+              mapKey={mapKey}
+              callback={initMap}
+            />
           </div>
         </Form>
       </Modal>
