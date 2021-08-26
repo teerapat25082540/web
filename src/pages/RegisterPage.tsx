@@ -1,16 +1,52 @@
-import { Button, Card, Col, Form, Input, Modal, Row, Image } from "antd";
+import {
+  Button,
+  Card,
+  Col,
+  Form,
+  Input,
+  Modal,
+  Row,
+  Image,
+  message,
+} from "antd";
 import React from "react";
 import axios from "axios";
 import { typeNewUser } from "../DataType";
 import MainLayouts from "../layouts/MainLayouts";
 import { useHistory } from "react-router";
-import RegisterBanner from "../images/register-banner.png"
+import RegisterBanner from "../images/register-banner.png";
 
 const Register = () => {
   const [form] = Form.useForm();
   const history = useHistory();
   const accessToken = localStorage.getItem("accessToken");
 
+  //   const addNewUserHandler = async (data: typeNewUser) => {
+  //    try {
+  //       const res = await axios.post(
+  //         "http://localhost:4000/api/user",
+  //         JSON.stringify(data),
+  //         { headers: { "Content-Type": "application/json" } }
+  //       );
+  // //console.log(res)
+  //       if (res) {
+  //         Modal.success({
+  //           content: "ลงทะเบียนสำเร็จ!",
+  //         });
+  //         form.resetFields();
+  //       }
+
+  //       history.push("/");
+  //     } catch (error) {
+  //       Modal.error({
+  //         content: "ลงทะเบียนไม่สำเร็จ มีอีเมลหรือชื่อผู้ใช้นี้อยู่แล้ว!",
+  //       });
+  //       console.log(error);
+  //     }
+  //     //console.log(data);
+  //    // try { let res = await axios.get('/xxxxx/xxxx') } catch (e) { console.log(e.response) // undefined }.
+
+  //   };
   const addNewUserHandler = async (data: typeNewUser) => {
     try {
       const res = await axios.post(
@@ -19,20 +55,24 @@ const Register = () => {
         { headers: { "Content-Type": "application/json" } }
       );
       if (res) {
-        Modal.success({
-          content: "save successfully!",
-        });
+        Modal.success({ content: "save successfully!" });
       }
-
       history.push("/");
-    } catch (error) {
-      Modal.error({
-        content: "duplicate information!",
-      });
+    } catch (error: any) {
+      /* console.log(error.response.data.message) */ 
+      let u: any = error.response.data.message[0];
+      let e: any = error.response.data.message[1];
+      let username: any = u.split(" ")[0];
+      let email: any = e.split(" ")[0];
+      if (username) {
+        console.log(username);
+      }
+      if (email) {
+        console.log("email already");
+      } /* Modal.error({ content: "duplicate information!", }); */
     }
-    console.log(data);
-
-    form.resetFields();
+    /* console.log(data); */ 
+    //form.resetFields();
   };
 
   if (accessToken) {
@@ -43,9 +83,9 @@ const Register = () => {
       <>
         <MainLayouts page="4">
           <Row justify="center">
-            <Col span={12} >
+            <Col span={12}>
               <Row justify="center" style={{ marginTop: "4rem" }}>
-                <Card title="ลงชื่อเข้าใช้" >
+                <Card title="สร้างบัญชี">
                   <Form
                     name="basic"
                     layout="vertical"
@@ -140,7 +180,7 @@ const Register = () => {
               </Row>
             </Col>
             <Col span={12}>
-              <Row justify="center" style={{ marginTop: "7rem" }} >
+              <Row justify="center" style={{ marginTop: "7rem" }}>
                 <Image preview={false} src={RegisterBanner} width={600} />
               </Row>
             </Col>

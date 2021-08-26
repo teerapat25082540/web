@@ -211,7 +211,7 @@ function MainLayouts({
             )}
             {token ? null : (
               <Menu.Item key="4" icon={<FormOutlined />}>
-                ลงชื่อเข้าใช้
+                สร้างบัญชี
               </Menu.Item>
             )}
             {token ? (
