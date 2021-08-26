@@ -8,6 +8,7 @@ import {
   Form,
   InputNumber,
   Modal,
+  Select,
 } from "antd";
 import {
   MenuUnfoldOutlined,
@@ -54,6 +55,7 @@ function MainLayouts({
   const [lat, setLat] = useState<number>(0);
   const [lon, setLon] = useState<number>(0);
   const [form] = Form.useForm();
+  const { Option } = Select;
 
   const token = localStorage.getItem("accessToken");
 
@@ -290,9 +292,18 @@ function MainLayouts({
           centered
           visible={modalAddData}
           width={600}
-          onCancel={() =>  {setModalAddData(false); form.resetFields();}}
+          onCancel={() => {
+            setModalAddData(false);
+            form.resetFields();
+          }}
           footer={[
-            <Button key="back" onClick={() => {setModalAddData(false); form.resetFields();}}>
+            <Button
+              key="back"
+              onClick={() => {
+                setModalAddData(false);
+                form.resetFields();
+              }}
+            >
               Cancel
             </Button>,
             <Button key="submit" type="primary" htmlType="submit" form="myForm">
@@ -314,7 +325,21 @@ function MainLayouts({
                 rules={[{ required: true, message: "กรุณากรอกชื่อวัคซีน" }]}
                 style={{ display: "inline-block", width: "calc(50%)" }}
               >
-                <Input placeholder="ชื่อวัคซีน" />
+                {/* <Input placeholder="ชื่อวัคซีน" /> */}
+                <Select defaultValue="">
+                  <Option value="">โปรดเลือก</Option>
+                  <Option value="Pfizer">Pfizer</Option>
+                  <Option value="Moderna">Moderna</Option>
+                  <Option value="Johnson & Johnson">Johnson & Johnson</Option>
+                  <Option value="Novavax">Novavax</Option>
+                  <Option value="AstraZeneca">AstraZeneca</Option>
+                  <Option value="Sputnik-V">Sputnik-V</Option>
+                  <Option value="Sinovac">Sinovac</Option>
+                  <Option value="Sinopharm">Sinopharm</Option>
+                  <Option value="CanSino">CanSino</Option>
+                  <Option value="Covishield">Covishield</Option>
+                  <Option value="Covaxin">Covaxin</Option>
+                </Select>
               </Form.Item>
               <Form.Item
                 name="amount"
