@@ -54,6 +54,13 @@ export type typeNewUser = {
   createAt?: Date;
 };
 
+export let visibleCollapse:boolean = false
+
+export const setVisibleCollapse = () => {
+    if(visibleCollapse) visibleCollapse = false
+    else visibleCollapse = true
+}
+
 export const getCurrentLocation = () => {
   return new Promise((resolve, reject) => {
     if (navigator.geolocation) {

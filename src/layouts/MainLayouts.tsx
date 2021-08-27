@@ -22,6 +22,7 @@ import {
   ProfileOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
+import { visibleCollapse, setVisibleCollapse } from '../DataType';
 
 import { FaMapMarkedAlt, FaListAlt, FaUser } from "react-icons/fa";
 import "../styles/MainLayouts.css";
@@ -144,6 +145,7 @@ function MainLayouts({
       ...state,
       collapsed: !state.collapsed,
     });
+    setVisibleCollapse()
     //console.log(state);
   };
 
@@ -187,8 +189,8 @@ function MainLayouts({
   return (
     <>
       <Layout>
-        <Sider trigger={null} collapsible collapsed={state.collapsed}>
-          {state.collapsed ? (
+        <Sider trigger={null} collapsible collapsed={visibleCollapse}>
+          {visibleCollapse ? (
             <Image className="logo" preview={false} src={VaccineIcon} />
           ) : (
             <div>
@@ -235,7 +237,7 @@ function MainLayouts({
         <Layout className="site-layout">
           <Header className="site-layout-background" style={{ padding: 0 }}>
             {React.createElement(
-              state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+              visibleCollapse ? MenuUnfoldOutlined : MenuFoldOutlined,
               {
                 className: "trigger",
                 onClick: toggle,

@@ -32,7 +32,7 @@ const Register = () => {
       }
       history.push("/");
     } catch (error: any) {
-      /* console.log(error.response.data.message) */ 
+      console.log(error.response.data.message) 
       let u: any = error.response.data.message[0];
       let e: any = error.response.data.message[1];
       let username: any = u.split(" ")[0];
