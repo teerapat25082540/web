@@ -22,7 +22,7 @@ import {
   ProfileOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
-import { visibleCollapse, setVisibleCollapse } from '../DataType';
+import { visibleCollapse, setVisibleCollapse } from "../DataType";
 
 import { FaMapMarkedAlt, FaListAlt, FaUser } from "react-icons/fa";
 import "../styles/MainLayouts.css";
@@ -140,8 +140,13 @@ function MainLayouts({
     setSuggestions([]);
   };
 
+  // const toggle = () => {
+  //   setVisibleCollapse()
+  //   //console.log(state);
+  // };
   const toggle = () => {
-    setVisibleCollapse()
+    setState({ ...state, collapsed: !state.collapsed });
+    setVisibleCollapse();
     //console.log(state);
   };
 
@@ -224,7 +229,11 @@ function MainLayouts({
               </Menu.Item>
             ) : null}
             {token ? (
-              <Menu.Item key="logout" onClick={logOut} icon={<LogoutOutlined />}>
+              <Menu.Item
+                key="logout"
+                onClick={logOut}
+                icon={<LogoutOutlined />}
+              >
                 ออกจากจะบบ
               </Menu.Item>
             ) : null}
