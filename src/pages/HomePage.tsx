@@ -298,7 +298,7 @@ const HomePage = () => {
 
           {postcode && (
             <span>
-              จังหวัด {postcode} <br />
+              รหัสไปรษณีย์ {postcode} <br />
             </span>
           )}
 

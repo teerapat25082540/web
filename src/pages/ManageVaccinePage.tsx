@@ -292,7 +292,7 @@ function ManageVaccine() {
 
             {address.postcode && (
               <span>
-                จังหวัด {address.postcode} <br />
+                รหัสไปรษณีย์ {address.postcode} <br />
               </span>
             )}
 
