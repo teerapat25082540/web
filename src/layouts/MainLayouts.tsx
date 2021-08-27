@@ -141,10 +141,6 @@ function MainLayouts({
   };
 
   const toggle = () => {
-    setState({
-      ...state,
-      collapsed: !state.collapsed,
-    });
     setVisibleCollapse()
     //console.log(state);
   };
