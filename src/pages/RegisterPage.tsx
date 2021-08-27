@@ -153,7 +153,7 @@ const Register = () => {
                           <Button
                             type="primary"
                             htmlType="submit"
-                            style={{ width: "27rem", marginTop: "1rem" }}
+                            style={{ width: "28rem", marginTop: "1rem" }}
                           >
                             ยืนยันการลงทะเบียน
                           </Button>
