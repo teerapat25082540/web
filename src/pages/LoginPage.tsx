@@ -64,23 +64,9 @@ const Login = () => {
     return (
       <>
         <MainLayouts page="3">
-          <Row justify="center" style={{ padding: "2rem" }}>
-            <div
-              className="site-card-border-less-wrapper"
-              style={{ textAlign: "center" }}
-            >
-              <Card
-                title="เข้าสู่ระบบ"
-                bordered={true}
-                style={{ width: "30rem" }}
-                // cover={
-                //   <img
-                //     alt="banner"
-                //     style={{ padding: 3 }}
-                //     src={VaccineBanner}
-                //   />
-                // }
-              >
+          <div className="site-card-wrapper">
+            <Row justify="center">
+              <Card title="เข้าสู่ระบบ" bordered={true} style={{ width: "35rem" }}>
                 <Form
                   name="basic"
                   layout="vertical"
@@ -113,21 +99,19 @@ const Login = () => {
                     <Input.Password />
                   </Form.Item>
 
-                  <Row justify="center">
-                    <Form.Item>
-                      <Button
-                        type="primary"
-                        htmlType="submit"
-                        style={{ width: "27rem", marginTop: "1rem" }}
-                      >
-                        เข้าสู่ระบบ
-                      </Button>
-                    </Form.Item>
-                  </Row>
+                  <Form.Item>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      style={{ marginTop: "1rem" }}
+                    >
+                      เข้าสู่ระบบ
+                    </Button>
+                  </Form.Item>
                 </Form>
               </Card>
-            </div>
-          </Row>
+            </Row>
+          </div>
         </MainLayouts>
       </>
     );

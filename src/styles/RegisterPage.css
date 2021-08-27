@@ -1,0 +1,14 @@
+
+.form {
+    margin-left: 20rem;
+}
+
+@media only screen and (max-width: 1497px) {
+    .picture{
+        display: none;
+    }
+
+    .form {
+        margin-left: 0rem;
+    }
+}
