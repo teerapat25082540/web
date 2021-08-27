@@ -249,7 +249,7 @@ function ManageVaccine() {
       content: (
         <div>
           <p>
-            <span>จำนวน : {item.amount} โดส</span>
+            <span>จำนวน : {Intl.NumberFormat().format(item.amount)} โดส</span>
             <br />
             <span>รายละเอียด : {item.description}</span>
             <br />

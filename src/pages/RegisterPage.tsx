@@ -7,7 +7,6 @@ import {
   Modal,
   Row,
   Image,
-  message,
 } from "antd";
 import React from "react";
 import axios from "axios";
@@ -21,32 +20,6 @@ const Register = () => {
   const history = useHistory();
   const accessToken = localStorage.getItem("accessToken");
 
-  //   const addNewUserHandler = async (data: typeNewUser) => {
-  //    try {
-  //       const res = await axios.post(
-  //         "http://localhost:4000/api/user",
-  //         JSON.stringify(data),
-  //         { headers: { "Content-Type": "application/json" } }
-  //       );
-  // //console.log(res)
-  //       if (res) {
-  //         Modal.success({
-  //           content: "ลงทะเบียนสำเร็จ!",
-  //         });
-  //         form.resetFields();
-  //       }
-
-  //       history.push("/");
-  //     } catch (error) {
-  //       Modal.error({
-  //         content: "ลงทะเบียนไม่สำเร็จ มีอีเมลหรือชื่อผู้ใช้นี้อยู่แล้ว!",
-  //       });
-  //       console.log(error);
-  //     }
-  //     //console.log(data);
-  //    // try { let res = await axios.get('/xxxxx/xxxx') } catch (e) { console.log(e.response) // undefined }.
-
-  //   };
   const addNewUserHandler = async (data: typeNewUser) => {
     try {
       const res = await axios.post(

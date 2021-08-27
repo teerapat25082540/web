@@ -200,6 +200,7 @@ function MainLayouts({
             selectedKeys={page}
             theme="dark"
             defaultSelectedKeys={["1"]}
+            mode="inline"
           >
             <Menu.Item key="1" icon={<FaMapMarkedAlt />}>
               จุดรับวัคซีน
@@ -225,7 +226,7 @@ function MainLayouts({
               </Menu.Item>
             ) : null}
             {token ? (
-              <Menu.Item onClick={logOut} icon={<LogoutOutlined />}>
+              <Menu.Item key="logout" onClick={logOut} icon={<LogoutOutlined />}>
                 ออกจากจะบบ
               </Menu.Item>
             ) : null}
@@ -258,8 +259,6 @@ function MainLayouts({
                     style={{
                       width: 170,
                       marginLeft: 10,
-                      // backgroundColor: "#011529",
-                      // borderColor: "#011529",
                     }}
                     type="primary"
                     icon={<MonitorOutlined />}

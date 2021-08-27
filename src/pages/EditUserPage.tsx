@@ -11,8 +11,6 @@ const EditUser = ({ update }: Props) => {
   const [data, setData] = useState<any>({});
   const formRef = useRef<any>()
 
-  //const [form] = Form.useForm();
-
   const showModal = () => {
     setIsModalVisible(true);
     setData({
@@ -55,7 +53,6 @@ const EditUser = ({ update }: Props) => {
           backgroundColor: "#ffc404",
           borderColor: "#ffc404",
         }}
-        //style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
       >
         แก้ไขข้อมูล
       </Button>
@@ -72,7 +69,6 @@ const EditUser = ({ update }: Props) => {
           name="basic"
           onFinish={onFinish}
           ref={formRef}
-          //form={form}
           layout="vertical"
           initialValues={{
             firstname: data.firstname,

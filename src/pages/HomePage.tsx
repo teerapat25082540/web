@@ -259,7 +259,7 @@ const HomePage = () => {
         ]}
       >
         <h4 style={{ fontWeight: "bold" }}>{vaccineName}</h4>
-        <p>จำนวน {amount} โดส</p>
+        <p>จำนวน {Intl.NumberFormat().format(amount)} โดส</p>
 
         <h4 style={{ fontWeight: "bold" }}>รายละเอียด</h4>
         <p>{description}</p>
