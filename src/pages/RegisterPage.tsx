@@ -28,21 +28,36 @@ const Register = () => {
         { headers: { "Content-Type": "application/json" } }
       );
       if (res) {
-        Modal.success({ content: "save successfully!" });
+        Modal.success({ content: "ลงทะเบียนสำเร็จ!" });
       }
       history.push("/");
     } catch (error: any) {
-      console.log(error.response.data.message) 
+     console.log(error.response.data.message)  
       let u: any = error.response.data.message[0];
       let e: any = error.response.data.message[1];
-      let username: any = u.split(" ")[0];
-      let email: any = e.split(" ")[0];
-      if (username) {
+    
+
+      let username: any
+      let email: any 
+
+      // e? email = e.split(" ")[0]:null;
+      if(e)email =e.split(" ")[0]
+      if(u)username =u.split(" ")[0]
+      if(username === data.email){
+        email = username
+        username = null
+      }
+      if (username && email) {
+        Modal.error({ content: "มี username และ email นี้อยู่แล้ว!" });
         console.log(username);
       }
-      if (email) {
-        console.log("email already");
+      else if (email) {
+        Modal.error({ content: "มี email นี้อยู่แล้ว!" });
+        console.log(email);
       } /* Modal.error({ content: "duplicate information!", }); */
+      else{
+        Modal.error({ content: "มี username นี้อยู่แล้ว!" });
+      }
     }
     /* console.log(data); */ 
     //form.resetFields();
